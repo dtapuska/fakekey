@@ -10,7 +10,7 @@ int main(int argc, char** argv) {
     printf("  sleep N - sleeps N microseconds\n");
     printf("  sleepms N - sleeps N milliseconds\n");
     printf("  up N - sends keyup command for N key\n");
-    printf("  up N - sends keydown command for N key\n");
+    printf("  down N - sends keydown command for N key\n");
     return 0;
   }
 
