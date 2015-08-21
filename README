@@ -1,0 +1,13 @@
+# fakekey
+
+This app injects keyboards events on Linux based on input from a instruction
+file provided to the application.
+
+To build:
+cmake .
+make
+
+To run:
+sudo ./fakekey < sample.txt
+
+

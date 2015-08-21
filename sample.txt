@@ -1,0 +1,8 @@
+sleepms 2000
+down KEY_LEFTSHIFT
+down KEY_1
+up KEY_1
+down KEY_2
+up KEY_2
+down KEY_3
+up KEY_3
