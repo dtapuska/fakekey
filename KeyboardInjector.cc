@@ -606,14 +606,17 @@ void KeyboardInjector::Run()
 
 bool KeyboardInjector::ProcessCommand(const char* command, unsigned int code, const char* codeStr)
 {
-  if (strcmp(command, "sleep") == 0) {
+  if (command[0] == '#') {
+    return true;
+  } else if (strcmp(command, "sleep") == 0) {
     usleep(code);
     return true;
   } else if (strcmp(command, "sleepms") == 0) {
     usleep(code * 1000);
     return true;
   } else if (strcmp(command, "up") == 0 ||
-             strcmp(command, "down") == 0) {
+             strcmp(command, "down") == 0 ||
+             strcmp(command, "downup") == 0) {
     if (code == 0) {
       KeyMap::const_iterator it = m_keyMap.find(codeStr);
       if (it != m_keyMap.end()) {
@@ -626,6 +629,11 @@ bool KeyboardInjector::ProcessCommand(const char* command, unsigned int code, co
 
     libevdev_uinput_write_event(m_uidev, EV_KEY, code, command[0] == 'd');
     libevdev_uinput_write_event(m_uidev, EV_SYN, SYN_REPORT, 0);
+    if (strcmp(command, "downup") == 0) {
+      usleep(60*1000);
+      libevdev_uinput_write_event(m_uidev, EV_KEY, code, false);
+      libevdev_uinput_write_event(m_uidev, EV_SYN, SYN_REPORT, 0);
+    }
     return true;
   }
   fprintf(stderr, "Invalid command %s\n", command);
