@@ -1,0 +1,9 @@
+sleepms 2000
+down 21
+up 21
+#down VK_OEM_NEC_EQUAL
+#up VK_OEM_NEC_EQUAL
+#down VK_SUBTRACT
+#up VK_SUBTRACT
+#down VK_DECIMAL
+#up VK_DECIMAL

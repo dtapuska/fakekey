@@ -1,10 +1,15 @@
 cmake_minimum_required(VERSION 2.8.11)
 project(fakekey)
 
-set(SOURCE_FILES main.cc KeyboardInjector.cc)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror -std=c++11")
-include_directories("/usr/include/libevdev-1.0")
+set(SOURCE_FILES main.cc)
+if(CMAKE_COMPILER_IS_GNUCXX)
+    set(SOURCE_FILES ${SOURCE_FILES} KeyboardInjector.cc)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DTARGET_LINUX -Wall -Wextra -Werror -std=c++11")
+    include_directories("/usr/include/libevdev-1.0")
+    target_link_libraries (fakekey evdev)
+endif(CMAKE_COMPILER_IS_GNUCXX)
+if(MSVC)
+    set(SOURCE_FILES ${SOURCE_FILES} KeyboardInjectorWin.cc)
+endif(MSVC)
 
 add_executable(fakekey ${SOURCE_FILES})
-
-target_link_libraries (fakekey evdev)
